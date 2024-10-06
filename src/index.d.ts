@@ -8,6 +8,6 @@ export interface Database {
 export function prepareDatabase(): Database;
 
 export function parity(
-  definition: (sql: Database["sql"]) => Promise<void>,
-  migrations: Array<(sql: Database["sql"]) => Promise<void>>
+  definition: (sql: Database["sql"]) => Promise<any>,
+  migrations: Array<(sql: Database["sql"]) => Promise<any>>
 ): Promise<void>;

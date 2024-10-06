@@ -4,7 +4,8 @@ import assert from "assert/strict";
 
 export function prepareDatabase() {
   const pg = new PGlite();
-  const sql = (...args) => pg.sql(...args).then((its) => its.rows);
+  const sql = (templateStrings, ...args) =>
+    pg.sql(templateStrings, ...args).then((its) => its.rows);
   return { pg, sql };
 }
 
