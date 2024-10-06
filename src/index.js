@@ -1,6 +1,6 @@
 import { diff, inspect, definition as pgDiffDefinition } from "@ayatkevich/pg-diff";
 import { PGlite } from "@electric-sql/pglite";
-import assert from "assert";
+import assert from "assert/strict";
 
 export function prepareDatabase() {
   const pg = new PGlite();
