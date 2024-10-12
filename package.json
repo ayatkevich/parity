@@ -11,10 +11,11 @@
     "src/"
   ],
   "dependencies": {
-    "@ayatkevich/pg-diff": "0.13.0"
+    "@ayatkevich/pg-diff": "0.13.0",
+    "@ayatkevich/postgres-lite": "0.2.0"
   },
   "devDependencies": {
-    "@electric-sql/pglite": "0.2.10",
+    "@electric-sql/pglite": "0.2.12",
     "@jest/globals": "29.7.0",
     "jest": "29.7.0"
   },
