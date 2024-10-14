@@ -1,19 +1,12 @@
-import { diff, inspect, definition as pgDiffDefinition } from "@ayatkevich/pg-diff";
-import { PGlite } from "@electric-sql/pglite";
+import { definitionPath, diff, inspect } from "@ayatkevich/pg-diff";
+import postgresLite from "@ayatkevich/postgres-lite";
 import assert from "assert/strict";
 
-export function prepareDatabase() {
-  const pg = new PGlite();
-  const sql = (templateStrings, ...args) =>
-    pg.sql(templateStrings, ...args).then((its) => its.rows);
-  return { pg, sql };
-}
-
 export async function parity(definition, migrations) {
-  const db1 = prepareDatabase();
-  const db2 = prepareDatabase();
-  await db1.pg.exec(pgDiffDefinition);
-  await db2.pg.exec(pgDiffDefinition);
+  const db1 = { sql: postgresLite() };
+  const db2 = { sql: postgresLite() };
+  await db1.sql.file(definitionPath);
+  await db2.sql.file(definitionPath);
   try {
     await definition(db1.sql);
     const fromDefinition = await inspect(db1.sql);
@@ -24,7 +17,7 @@ export async function parity(definition, migrations) {
     const diffs = await diff(db1.sql, { left: fromDefinition, right: fromMigrations });
     assert.deepEqual(diffs, []);
   } finally {
-    await db1.pg.close();
-    await db2.pg.close();
+    await db1.sql.end();
+    await db2.sql.end();
   }
 }
