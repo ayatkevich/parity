@@ -1,7 +1,10 @@
-import { Results } from "@electric-sql/pglite";
-
 export interface Database {
-  sql: (sqlStrings: TemplateStringsArray, ...params: any[]) => Promise<Results["rows"]>;
+  sql: (
+    sqlStrings: TemplateStringsArray,
+    ...params: any[]
+  ) => Promise<{
+    [key: string]: any;
+  }>;
 }
 
 export function parity(
